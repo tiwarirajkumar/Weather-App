@@ -1,6 +1,6 @@
 let weather = 'd84cbac3c1fb2a3b4e720807e7781736';
 
-my_fun()
+my_fun('gonda')
 function search() {
   city_name = this.fetchWeather(document.querySelector(".search-bar").value);
   console.log(city_name)
@@ -19,7 +19,7 @@ function my_fun(city_name){
     .then((data) => {
         const { name } = data;
         const { icon, description } = data.weather[0];
-        const { temp, humidity } = data.main;
+        let { temp, humidity } = data.main;
         const { speed } = data.wind;
         console.log(name,description,temp,humidity,speed);
         
@@ -27,7 +27,9 @@ function my_fun(city_name){
         document.querySelector(".icon").src =
       "https://openweathermap.org/img/wn/" + icon + ".png";
       document.querySelector(".description").innerText = description;
-    document.querySelector(".temp").innerText = temp + "K";
+      temp = parseFloat(temp) - 273.15;
+     temp = temp.toFixed(2)
+    document.querySelector(".temp").innerText = temp + "°C";
     document.querySelector(".humidity").innerText =
       "Humidity: " + humidity + "%";
     document.querySelector(".wind").innerText =
